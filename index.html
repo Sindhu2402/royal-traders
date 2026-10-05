@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Traders</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#fff;color:#2b2b2b;overflow-x:hidden}
+a{text-decoration:none}ul{list-style:none}img{max-width:100%;display:block}
+#header{position:fixed;top:0;left:0;right:0;height:74px;background:#fff;box-shadow:0 1px 12px rgba(0,0,0,.08);z-index:1000;display:flex;align-items:center}
+.nav-wrap{width:min(1280px,92%);margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.55rem;font-weight:800;color:#2c4a66;letter-spacing:.3px}
+#navmenu ul{display:flex;gap:18px;align-items:center}
+#navmenu a{color:#3a5874;font-weight:500;font-size:.94rem;padding:6px 2px;position:relative}
+#navmenu a.active{font-weight:800;color:#1877f2;transform:scale(1.08)}
+#navmenu a.active::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:3px;background:#1877f2;border-radius:2px}
+.btn-contact{background:#1877f2;color:#fff!important;padding:9px 22px;border-radius:20px}
+.full-change-btn{width:48px;height:48px;border-radius:50%;border:3px solid #1877f2;background:linear-gradient(135deg,#1877f2 0%,#00b8db 100%);color:#fff;cursor:pointer;font-size:22px;display:grid;place-items:center;transition:.5s;box-shadow:0 8px 24px rgba(24,119,242,.35)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px 12px;border-radius:10px;background:rgba(24,119,242,.08)}
+.hamburger span{width:26px;height:3px;background:#2c4a66;border-radius:3px;display:block;transition:.35s}
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+#hero{margin-top:74px;position:relative;height:88vh;min-height:540px;overflow:hidden;background:#000}
+.track{position:relative;width:100%;height:100%}
+.slide{position:absolute;inset:0;transform:translateX(100%);opacity:0;transition:.8s ease;display:flex;align-items:center;justify-content:center}
+.slide.active{transform:translateX(0);opacity:1;z-index:2}
+.simg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.slide::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.56);z-index:2}
+.scontent{position:relative;z-index:3;color:#fff;text-align:center;max-width:780px;padding:0 18px}
+.scontent h1{font-family:'Poppins',sans-serif;font-size:clamp(2rem,5vw,3.9rem);font-weight:800;line-height:1.12;margin-bottom:16px}
+.scontent p{font-size:clamp(.95rem,2vw,1.18rem);color:#f0f0f0;margin-bottom:28px}
+.btn-hero{display:inline-block;background:#1877f2;color:#fff;padding:13px 36px;border-radius:6px;font-weight:600}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,.18);border:0;color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.arrow.prev{left:20px}.arrow.next{right:20px}
+.dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:9px}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
+.dot.active{background:#fff;width:28px;border-radius:10px}
+.marquee{background:#fff;padding:14px 0;overflow:hidden;white-space:nowrap;border-bottom:1px solid #e9e9e9;border-top:1px solid #f2f2f2}
+.mtrack{display:inline-flex;gap:16px;align-items:center;animation:scroll 32s linear infinite;width:max-content}
+.pill{display:inline-flex;align-items:center;padding:10px 20px;border-radius:22px;color:#fff;font-size:.9rem;font-weight:500;white-space:nowrap}
+.b1{background:#1877F2}.b2{background:#0d8a4e}.b3{background:#00b8db}.b4{background:#184af2}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ABOUT - DARK LAVENDER + KUTTY CARDS LEFT RIGHT + HIGHLIGHT */
+.about{padding:80px 0;background:#fff}
+.about-video-cards{
+  width:min(1200px,90%);
+  margin:0 auto;
+  background:#c7b5f0;
+  border-radius:28px;
+  padding:50px 44px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 16px 50px rgba(124,92,255,.22);
+  display:grid;
+  grid-template-columns:1.15fr.85fr;
+  gap:30px;
+  align-items:center;
+  min-height:580px;
+}
+.about-text-col{position:relative;z-index:3}
+.about-text-col h2{font-size:2.2rem;color:#2b2640;text-align:left;margin-bottom:18px;font-weight:700;font-family:'Poppins',sans-serif}
+.about-text-col p{color:#3d365c;line-height:1.9;font-size:1rem;text-align:left}
+.highlight-word{
+  background:linear-gradient(135deg,#5b21b6 0%,#7c3aed 50%,#ec4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-weight:800;
+  font-size:1.08em;
+  position:relative;
+  padding:2px 8px;
+}
+.highlight-word::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:2px;
+  width:100%;height:8px;
+  background:linear-gradient(90deg,rgba(124,58,237,.25),rgba(236,72,153,.25));
+  border-radius:4px;
+  z-index:-1;
+}
+.kutty{position:absolute;z-index:1;border-radius:10px;box-shadow:0 8px 20px rgba(124,92,255,.3);animation:floatK 5s ease-in-out infinite}
+.kutty1{width:42px;height:42px;background:linear-gradient(135deg,#a78bfa 0%,#ec4899 100%);top:14%;left:6%;transform:rotate(18deg)}
+.kutty2{width:34px;height:34px;background:linear-gradient(135deg,#f472b6 0%,#a78bfa 100%);top:16%;right:8%;border-radius:12px;animation-delay:.4s;transform:rotate(-12deg)}
+.kutty3{width:28px;height:28px;background:linear-gradient(135deg,#c4b5fd 0%,#f5d0fe 100%);bottom:20%;left:8%;border-radius:8px;animation-delay:.8s;transform:rotate(10deg)}
+.kutty4{width:22px;height:22px;background:#ff6b9d;bottom:16%;right:12%;border-radius:6px;transform:rotate(45deg);animation-delay:1.2s}
+.kutty5{width:18px;height:18px;background:#ddd6fe;top:50%;left:2%;border-radius:5px;animation-delay:.6s}
+@keyframes floatK{0%,100%{transform:translateY(0) rotate(var(--r,18deg))}50%{transform:translateY(-14px) rotate(calc(var(--r,18deg) + 12deg))}}
+
+.cards-col{position:relative;height:500px;display:flex;align-items:center;justify-content:center;z-index:2}
+.stack{position:relative;width:320px;height:420px;perspective:1600px;cursor:pointer}
+.card{position:absolute;left:50%;top:50%;width:280px;height:370px;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 18px 45px rgba(0,0,0,.22);border:4px solid #fff;transition:all.8s cubic-bezier(.68,-.55,.265,1.55);display:flex;flex-direction:column}
+.card-img{width:100%;height:100%;flex:1;background:#fdf6f0;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(1.08) contrast(1.08)}
+.card-label{height:54px;min-height:54px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;color:#2b2640;font-size:1rem;border-top:1.5px solid #f1e6dc;flex-shrink:0}
+.card.a{z-index:7;transform:translate(-50%,-50%) rotate(0deg) scale(1)}
+.card.b{z-index:6;transform:translate(calc(-50% - 12px), calc(-50% + 6px)) rotate(-6deg) scale(.96)}
+.card.c{z-index:5;transform:translate(calc(-50% + 12px), calc(-50% + 12px)) rotate(6deg) scale(.94)}
+.card.d{z-index:4;transform:translate(calc(-50% - 6px), calc(-50% + 18px)) rotate(-3deg) scale(.91)}
+.card.e{z-index:3;transform:translate(calc(-50% + 6px), calc(-50% + 24px)) rotate(3deg) scale(.88)}
+.card.f{z-index:2;transform:translate(-50%, calc(-50% + 30px)) rotate(-1deg) scale(.85)}
+.card.g{z-index:1;transform:translate(-50%, calc(-50% + 36px)) rotate(1deg) scale(.82)}
+.card.out{transform:translate(-200%,-50%) rotate(-32deg) scale(.6)!important;opacity:0}
+
+.stats-section{background:#fff;padding:72px 0 60px;text-align:center}
+.stats-grid{width:min(1100px,92%);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.stat-item{display:flex;flex-direction:column;align-items:center;gap:14px}
+.stat-icon{width:120px;height:120px;background:#eef2ff;border-radius:50%;display:grid;place-items:center;box-shadow:0 12px 32px rgba(24,119,242,.18);border:4px solid #fff;overflow:hidden;transition:.4s}
+.stat-icon:hover{transform:scale(1.08)}
+.stat-icon img{width:90px;height:90px;object-fit:cover;border-radius:50%;margin:auto}
+.stat-number{font-size:2.8rem;font-weight:800;color:#1877f2;font-family:'Poppins',sans-serif}
+.stat-label{font-size:1rem;color:#555;font-weight:600}
+.products-section{padding:70px 0;background:#fff;text-align:center}
+.products-section h2{font-size:2rem;color:#231a14;margin-bottom:36px;font-weight:800}
+.product-grid{width:min(1100px,92%);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product-card{background:#fff;border:2px solid #e8e8e8;border-radius:18px;padding:20px 12px 16px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all.4s cubic-bezier(.175,.885,.32,1.275)}
+.product-card:hover{border-color:#1877f2;box-shadow:0 16px 40px rgba(24,119,242,.22),0 8px 20px rgba(24,119,242,.12);transform:translateY(-8px) scale(1.02)}
+.product-card img{width:110px;height:110px;object-fit:cover;border-radius:16px;background:#fdf6f0;margin:0 auto 14px auto;display:block;transition:.4s}
+.product-card:hover img{transform:scale(1.08)}
+.product-card p{font-size:.92rem;color:#2b2b2b;font-weight:600;text-align:center}
+.services-section{padding:70px 0;background:#f8f9fb;text-align:center}
+.services-section h2{font-size:2rem;color:#231a14;margin-bottom:10px;font-weight:800}
+.sub{color:#777;font-size:.92rem;margin-bottom:36px;width:min(700px,92%);margin:0 auto}
+.service-grid{width:min(1100px,92%);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{background:#fff;border-radius:24px;padding:30px 22px;text-align:center;border:2px solid transparent;box-shadow:0 4px 18px rgba(0,0,0,.05);display:flex;flex-direction:column;align-items:center;transition:all.45s cubic-bezier(.175,.885,.32,1.275)}
+.service-card:hover{border-color:#1877f2;box-shadow:0 20px 50px rgba(24,119,242,.18),0 10px 25px rgba(24,119,242,.1);transform:translateY(-10px) scale(1.02)}
+.service-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 18px auto;display:block;transition:.4s;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.service-card:hover img{transform:scale(1.1) rotate(3deg)}
+.service-card h4{font-size:1.05rem;color:#1877f2;margin-bottom:10px;font-weight:600;text-align:center}
+.service-card p{font-size:.86rem;color:#666;line-height:1.6;text-align:center}
+.cta-section{background:#1877f2;color:#fff;text-align:center;padding:54px 20px}
+.portfolio-section{padding:70px 0;background:#fff;text-align:center}
+.portfolio-section h2{font-weight:800;color:#231a14}
+.filter-tabs{display:flex;gap:12px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+.filter-tabs span{cursor:pointer;padding:8px 18px;border-radius:20px;font-size:.9rem;color:#666;border:1px solid #e8e8e8;background:#fff}
+.filter-tabs span.active{background:#1877f2;color:#fff;border-color:#1877f2}
+.portfolio-grid{width:min(1100px,92%);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.portfolio-item{overflow:hidden;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.06);background:#fff;transition:.4s}
+.portfolio-item:hover{box-shadow:0 12px 30px rgba(0,0,0,.15);transform:translateY(-4px)}
+.portfolio-item img{width:100%;height:240px;object-fit:cover;transition:.4s;filter:brightness(1.05) contrast(1.05)}
+.portfolio-item:hover img{transform:scale(1.06)}
+.contact-section{padding:70px 0;background:#fff;text-align:center}
+.contact-section h2{font-weight:800;color:#231a14}
+.contact-wrap{width:min(1100px,92%);margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:22px;text-align:left;margin-top:26px}
+.contact-info{background:#f8f9fb;padding:24px;border-radius:14px}
+.contact-form input,.contact-form textarea{width:100%;padding:13px 14px;margin-bottom:12px;border:1px solid #ddd;border-radius:10px;font-family:inherit;background:#fff;color:#2b2b2b}
+.contact-form button{background:#1877f2;color:#fff;border:0;padding:13px 26px;border-radius:10px;cursor:pointer;float:right;font-weight:600}
+footer{background:#0b1e3a;color:#cfd8e6;padding-top:40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:30px;padding-bottom:30px;width:min(1140px,92%);margin:0 auto}
+.copyright{text-align:center;padding:14px;background:#091a32;font-size:.85rem;color:#8aa0c2}
+@media(max-width:1024px){.about-video-cards{grid-template-columns:1fr;gap:20px;min-height:auto;padding:36px 24px}.about-text-col h2{text-align:center}.about-text-col p{text-align:center}.cards-col{height:460px}}
+@media(max-width:900px){
+#navmenu{position:fixed;top:74px;left:0;right:0;background:#1877f2;padding:24px 0 30px;transform:translateY(-120%);opacity:0;transition:.45s;pointer-events:none;z-index:999}
+#navmenu.open{transform:translateY(0);opacity:1;pointer-events:all}
+#navmenu ul{flex-direction:column;gap:20px}
+#navmenu a{color:rgba(255,255,255,.9);font-size:1.15rem;font-weight:600}
+#navmenu a.active{font-weight:800;color:#fff;font-size:1.25rem}
+.hamburger{display:flex}
+.product-grid{grid-template-columns:repeat(2,1fr)}
+.service-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.contact-wrap{grid-template-columns:1fr}
+.portfolio-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+.product-grid{grid-template-columns:1fr 1fr;gap:12px}
+.portfolio-grid{grid-template-columns:1fr}
+.cards-col{height:400px}
+.stack{width:280px;height:380px}
+.card{width:240px;height:320px}
+.about-video-cards{padding:28px 18px;border-radius:18px}
+#header{height:64px}#hero{margin-top:64px;min-height:460px;height:76vh}#navmenu{top:64px}
+}
+</style>
+</head>
+<body id="body">
+
+<header id="header">
+<div class="nav-wrap">
+<a class="logo" id="logo">Royal Traders</a>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+<nav id="navmenu"><ul>
+<li><a href="#hero" class="navlink active" data-sec="hero">Home</a></li>
+<li><a href="#about" class="navlink" data-sec="about">About</a></li>
+<li><a href="#products" class="navlink" data-sec="products">Products</a></li>
+<li><a href="#services" class="navlink" data-sec="services">Services</a></li>
+<li><a href="#portfolio" class="navlink" data-sec="portfolio">Portfolio</a></li>
+<li><a href="#contact" class="navlink" data-sec="contact">Contact</a></li>
+<li><button id="fullChangeBtn" class="full-change-btn" title="Full Website Change">✨</button></li>
+</ul></nav>
+</div>
+</header>
+
+<section id="hero">
+<div class="track">
+<div class="slide active"><img src="worldimg.jpeg" class="simg" alt=""><div class="scontent"><h1>Royal<br>Traders</h1><p>Quality Pulses, Grains and Spices for Every Home.</p><a href="#about" class="btn-hero">Get Started</a></div></div>
+<div class="slide"><img src="worldimg1.jpeg" class="simg" alt=""><div class="scontent"><h1>Royal<br>Industry</h1><p>Premium Nuts and Dry Fruits, Sourced Globally.</p><a href="#products" class="btn-hero">Explore</a></div></div>
+<div class="slide"><img src="nuts.jpeg" class="simg" alt=""><div class="scontent"><h1>Global Quality<br>Pulses & Grains</h1><p>Connecting Continents with Quality.</p><a href="#contact" class="btn-hero">Contact</a></div></div>
+</div>
+<button class="arrow prev" id="prev">&#10094;</button><button class="arrow next" id="next">&#10095;</button>
+<div class="dots" id="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+</section>
+
+<div class="marquee" id="marquee">
+<div class="mtrack">
+<span class="pill b1">Welcome to Royal Traders</span>
+<span class="pill b2">Your Trusted Source for Premium Pulses & Aromatic Spices!</span>
+<span class="pill b3">Quality You Can Trust</span>
+<span class="pill b4">Service You Can Rely On</span>
+</div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-video-cards" id="aboutBox">
+    <div class="kutty kutty1" style="--r:18deg"></div>
+    <div class="kutty kutty2" style="--r:-12deg"></div>
+    <div class="kutty kutty3" style="--r:10deg"></div>
+    <div class="kutty kutty4" style="--r:45deg"></div>
+    <div class="kutty kutty5" style="--r:5deg"></div>
+    <div class="about-text-col">
+      <h2 id="aboutTitle">About us</h2>
+      <p id="aboutText">
+        Royal Traders is a trusted name in the trade of high-quality
+        <span class="highlight-word">pulses and spices</span>, committed to delivering purity, freshness, and value in every grain. We specialize
+        in sourcing, processing, and supplying a wide variety of pulses and spices to wholesalers,
+        retailers, and bulk buyers across India. With a strong foundation built on trust,
+        transparency, and timely service, we have earned the loyalty of numerous customers by
+        offering aromatic products at competitive prices.
+      </p>
+      <p style="margin-top:14px;font-size:.88rem;opacity:.85;color:#2b2640"></p>
+    </div>
+    <div class="cards-col">
+      <div class="stack" id="stack">
+        <div class="card a"><div class="card-img"><img src="greenpeas.jpg" alt="Green Peas" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400'"></div><div class="card-label">Green Peas</div></div>
+        <div class="card b"><div class="card-img"><img src="spices.jpg" alt="Spices" onerror="this.src='https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=400'"></div><div class="card-label">Spices</div></div>
+        <div class="card c"><div class="card-img"><img src="clove.jpg" alt="Clove" onerror="this.src='https://images.unsplash.com/photo-1506368249639-73a05d4f6488?w=400'"></div><div class="card-label">Clove</div></div>
+        <div class="card d"><div class="card-img"><img src="pepper.jpeg" alt="Pepper" onerror="this.src='https://images.unsplash.com/photo-1558642084-fd43571e45df?w=400'"></div><div class="card-label">Pepper</div></div>
+        <div class="card e"><div class="card-img"><img src="fenugreakseed.jpeg" alt="Fenugreek" onerror="this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400'"></div><div class="card-label">Fenugreek Seeds</div></div>
+        <div class="card f"><div class="card-img"><img src="poppyseed.jpg" alt="Poppy" onerror="this.src='https://images.unsplash.com/photo-1583524505974-6facd53f4597?w=400'"></div><div class="card-label">Poppy Seeds</div></div>
+        <div class="card g"><div class="card-img"><img src="nutmeg.jpeg" alt="Nutmeg" onerror="this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400'"></div><div class="card-label">Nutmeg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section" id="statsSection">
+<div class="stats-grid">
+<div class="stat-item"><div class="stat-icon"><img src="client.jpg" alt="Clients" onerror="this.src='https://cdn-icons-png.flaticon.com/512/847/847969.png'"></div><div class="stat-number" data-target="10">0</div>+<div class="stat-label">Years of Experience</div></div>
+<div class="stat-item"><div class="stat-icon"><img src="project.jpg" alt="Projects" onerror="this.src='https://cdn-icons-png.flaticon.com/512/942/942748.png'"></div><div class="stat-number" data-target="500">0</div>+<div class="stat-label">Products Delivered</div></div>
+<div class="stat-item"><div class="stat-icon"><img src="hours.jpg" alt="Hours"></div><div class="stat-number" data-target="300">0</div>+<div class="stat-label">Happy Clients</div></div>
+<div class="stat-item"><div class="stat-icon"><img src="workers.jpg" alt="Workers"></div><div class="stat-number" data-target="15">0</div>+<div class="stat-label">States Served</div></div>
+</div>
+</section>
+
+<section class="products-section" id="productsSection">
+<h2 id="productsTitle">OUR PRODUCTS</h2>
+<div class="product-grid">
+<div class="product-card"><img src="toordal.jpg" alt="toor Dal" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400'"><p>Toor Dal</p></div>
+<div class="product-card"><img src="chanadal.png" alt="Chana Dal" onerror="this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400'"><p>Chana Dal</p></div>
+<div class="product-card"><img src="uraddal.jpg" alt="Urad Dal" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400'"><p>Urad Dal</p></div>
+<div class="product-card"><img src="turmeric.jpg" alt="Turmeric" onerror="this.src='https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=400'"><p>Turmeric Powder</p></div>
+<div class="product-card"><img src="cumin.jpg" alt="Cumin" onerror="this.src='https://images.unsplash.com/photo-1506368249639-73a05d4f6488?w=400'"><p>Cumin Seeds</p></div>
+<div class="product-card"><img src="pepper.jpeg" alt="Pepper" onerror="this.src='https://images.unsplash.com/photo-1558642084-fd43571e45df?w=400'"><p>Pepper</p></div>
+<div class="product-card"><img src="bayleaf.jpg" alt="Bay Leaf" onerror="this.src='https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?w=400'"><p>Bay Leaf</p></div>
+<div class="product-card"><img src="coriander.jpg" alt="Coriander" onerror="this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400'"><p>Coriander Seeds</p></div>
+</div>
+</section>
+
+<section class="services-section" id="servicesSection">
+<h2 id="servicesTitle">SERVICES</h2>
+<p class="sub" id="servicesSub">Our services are built on the pillars of trust, consistency, and customer satisfaction.</p>
+<div class="service-grid">
+<div class="service-card"><img src="industry.jpeg" alt="Wholesale" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400'"><h4>Wholesale Trading</h4><p>We offer a wide range of carefully selected pulses such as chana dal, toor dal, moong dal, urad dal, and masoor dal. Sourced directly from reliable farmers and suppliers, our pulses are known for their quality, freshness, and nutritional value.</p></div>
+<div class="service-card"><img src="finance.jpeg" alt="Bulk" onerror="this.src='https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400'"><h4>Bulk Distribution</h4><p>We support bulk buyers, retailers, and food industries by supplying large quantities with prompt logistics. Our team ensures on-time delivery and consistent quality, whether you're ordering monthly stock or a one-time bulk consignment.</p></div>
+<div class="service-card"><img src="trading.jpeg" alt="Packaging" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400'"><h4>Custom Packaging</h4><p>From turmeric and cumin to pepper and coriander, our range of Indian spices brings aroma and flavour to every kitchen. We ensure each spice is cleaned, packed, and delivered to meet the highest quality standards.</p></div>
+</div>
+</section>
+
+<section class="cta-section" id="ctaSection"><h2>Call To Action</h2><p>Partner with Royal Traders for reliable high-quality pulses and spices - delivered with integrity, consistency, and care.</p><a href="#contact" class="btn-cta" style="background:#fff;color:#1877f2;padding:10px 28px;border-radius:6px;font-weight:600;display:inline-block;margin-top:10px">Call To Action</a></section>
+
+<section class="portfolio-section" id="portfolioSection">
+<h2 id="portfolioTitle">PORTFOLIO</h2><p class="sub" id="portfolioSub">Explore our portfolio showcasing a wide range of premium pulses and spices trusted by retailers and wholesalers alike.</p>
+<div class="filter-tabs"><span class="active" onclick="filterPortfolio('all',this)">All</span><span onclick="filterPortfolio('nuts',this)">Nuts</span><span onclick="filterPortfolio('grains',this)">Grains</span><span onclick="filterPortfolio('spices',this)">Spices</span></div>
+<div class="portfolio-grid" id="portfolioGrid">
+<div class="portfolio-item" data-cat="nuts"><img src="nuts.jpeg" alt="Nuts" onerror="this.src='https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=400'"></div>
+<div class="portfolio-item" data-cat="grains"><img src="worldimg1.jpeg" alt="Grains" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400'"></div>
+<div class="portfolio-item" data-cat="spices"><img src="worldimg.jpeg" alt="Spices" onerror="this.src='https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=400'"></div>
+<div class="portfolio-item" data-cat="spices"><img src="chana.jpeg" alt="Chana" onerror="this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400'"></div>
+<div class="portfolio-item" data-cat="grains"><img src="seedss.jpeg" alt="Seeds" style="object-position:center 30%;filter:brightness(1.15) contrast(1.1)" onerror="this.src='https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=400'"></div>
+<div class="portfolio-item" data-cat="nuts"><img src="dal.jpeg" alt="Dal" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400'"></div>
+</div>
+</section>
+
+<section class="contact-section" id="contactSection">
+<h2 id="contactTitle">CONTACT</h2><p class="sub" id="contactSub">Get in touch with Royal Traders for premium quality pulses and spices.</p>
+<div class="contact-wrap">
+<div class="contact-info" id="contactInfo">
+<h4>📍 Address</h4><p>A88 Avinashi Street, Avinashi, Tamil Nadu - 641654</p>
+<h4>📞 Call Us</h4><p>+91 88388 77002</p>
+<h4>✉️ Email Us</h4><p>info@royaltraders.com</p>
+<h4>🕒 Working Hours</h4><p>Mon - Sat: 9:00 AM - 8:00 PM</p>
+</div>
+<form class="contact-form" id="contactForm">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<input type="text" placeholder="Subject" required>
+<textarea rows="5" placeholder="Message" required></textarea>
+<button type="submit">Send Message</button>
+</form>
+</div>
+</section>
+
+<footer id="footer"><div class="footer-grid"><div><a class="logo" style="color:#fff">Royal Traders</a><p style="margin-top:10px;color:#a8bdd8">Our mission is to deliver pure, fresh and premium-grade pulses and spices that meet every customer’s expectations.</p></div><div><h4>Useful Links</h4><ul><li><a href="#hero" style="color:#a8bdd8">Home</a></li><li><a href="#about" style="color:#a8bdd8">About</a></li><li><a href="#products" style="color:#a8bdd8">Products</a></li><li><a href="#portfolio" style="color:#a8bdd8">Portfolio</a></li></ul></div><div><h4>Contact Us</h4><p style="color:#a8bdd8">A88 Avinashi Street, Avinashi<br>Phone: +91 88388 77002<br>Email: info@example.com</p></div></div><div class="copyright" id="copyright">© Copyright Royal Traders.</div></footer>
+
+<script>
+const btn = document.getElementById('fullChangeBtn');
+let dark = false;
+btn.onclick = () => {
+  dark =!dark;
+  if(dark){
+    document.body.style.background = '#020617';
+    document.body.style.color = '#e2e8f0';
+    document.getElementById('header').style.background = '#0f172a';
+    document.getElementById('logo').style.color = '#fff';
+    document.getElementById('marquee').style.background = '#0f172a';
+    document.getElementById('aboutBox').style.background = '#1e1b4b';
+    document.getElementById('aboutTitle').style.color = '#fff';
+    document.getElementById('aboutText').style.color = '#cbd5e1';
+    document.getElementById('statsSection').style.background = '#020617';
+    document.getElementById('productsSection').style.background = '#020617';
+    document.getElementById('productsTitle').style.color = '#fff';
+    document.getElementById('servicesSection').style.background = '#0f172a';
+    document.getElementById('servicesTitle').style.color = '#fff';
+    document.getElementById('servicesSub').style.color = '#94a3b8';
+    document.getElementById('ctaSection').style.background = '#0c4a6e';
+    document.getElementById('portfolioSection').style.background = '#020617';
+    document.getElementById('portfolioTitle').style.color = '#fff';
+    document.getElementById('portfolioSub').style.color = '#94a3b8';
+    document.getElementById('contactSection').style.background = '#020617';
+    document.getElementById('contactTitle').style.color = '#fff';
+    document.getElementById('contactSub').style.color = '#94a3b8';
+    document.getElementById('contactInfo').style.background = '#0f172a';
+    document.getElementById('footer').style.background = '#000';
+    document.getElementById('copyright').style.background = '#000';
+    document.querySelectorAll('.product-card').forEach(c=>{ c.style.background='#0f172a'; c.style.borderColor='#1e293b'; });
+    document.querySelectorAll('.product-card p').forEach(p=>{ p.style.color='#e2e8f0'; });
+    document.querySelectorAll('.service-card').forEach(c=>{ c.style.background='#020617'; c.style.borderColor='#1e293b'; });
+    document.querySelectorAll('.service-card h4').forEach(h=>{ h.style.color='#38bdf8'; });
+    document.querySelectorAll('.service-card p').forEach(p=>{ p.style.color='#94a3b8'; });
+    document.querySelectorAll('.stat-icon').forEach(i=>{ i.style.background='#1e293b'; i.style.borderColor='#334155'; });
+    document.querySelectorAll('.stat-number').forEach(n=>{ n.style.color='#38bdf8'; });
+    document.querySelectorAll('.stat-label').forEach(l=>{ l.style.color='#94a3b8'; });
+    document.querySelectorAll('.portfolio-item').forEach(p=>{ p.style.background='#0f172a'; });
+    document.querySelectorAll('.filter-tabs span').forEach(s=>{ if(!s.classList.contains('active')){ s.style.background='#0f172a'; s.style.color='#94a3b8'; s.style.borderColor='#334155'; } });
+    document.querySelectorAll('.contact-form input,.contact-form textarea').forEach(inp=>{ inp.style.background='#0f172a'; inp.style.borderColor='#1e293b'; inp.style.color='#fff'; });
+    document.querySelectorAll('.card').forEach(c=>{ c.style.background='#1e293b'; c.style.borderColor='#334155'; });
+    document.querySelectorAll('.card-label').forEach(l=>{ l.style.background='#0f172a'; l.style.color='#fff'; l.style.borderColor='#334155'; });
+    btn.textContent='☀️';
+  } else {
+    location.reload();
+  }
+  btn.style.transform='rotate(720deg) scale(1.4)';
+  setTimeout(()=>btn.style.transform='',600);
+}
+const hamburger=document.getElementById('hamburger');const navmenu=document.getElementById('navmenu');
+const navlinks=document.querySelectorAll('.navlink');
+function setActive(link){ navlinks.forEach(l=>l.classList.remove('active')); link.classList.add('active'); }
+hamburger.onclick=()=>{ hamburger.classList.toggle('active'); navmenu.classList.toggle('open'); document.body.style.overflow=navmenu.classList.contains('open')?'hidden':''; }
+navlinks.forEach(link=>{ link.addEventListener('click',()=>{ setActive(link); navmenu.classList.remove('open'); hamburger.classList.remove('active'); document.body.style.overflow=''; }); });
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(sec=>{ const top=sec.offsetTop - 110; if(window.scrollY >= top){ current=sec.getAttribute('id'); } });
+  navlinks.forEach(l=>{ l.classList.remove('active'); if(l.getAttribute('data-sec')===current){ l.classList.add('active'); } });
+  if(window.scrollY < 300){ navlinks.forEach(l=>l.classList.remove('active')); document.querySelector('[data-sec="hero"]').classList.add('active'); }
+});
+const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot');let cur=0,timer;
+function go(n){if(n===cur)return;slides[cur].classList.remove('active');slides[cur].classList.add('prev');dots[cur].classList.remove('active');setTimeout(()=>slides[cur].classList.remove('prev'),800);cur=(n+slides.length)%slides.length;slides[cur].classList.add('active');dots[cur].classList.add('active')}
+function auto(){timer=setInterval(()=>go(cur+1),5000)}
+document.getElementById('next').onclick=()=>{go(cur+1);clearInterval(timer);auto()};
+document.getElementById('prev').onclick=()=>{go(cur-1);clearInterval(timer);auto()};
+dots.forEach((d,i)=>d.onclick=()=>{go(i);clearInterval(timer);auto()});auto();
+const stack=document.getElementById('stack');let cards=Array.from(stack.children);
+function layout(){cards.forEach((c,i)=>{c.className='card';if(i===0)c.classList.add('a');else if(i===1)c.classList.add('b');else if(i===2)c.classList.add('c');else if(i===3)c.classList.add('d');else if(i===4)c.classList.add('e');else if(i===5)c.classList.add('f');else c.classList.add('g');});}
+function rotate(){const first=cards[0];first.classList.add('out');setTimeout(()=>{first.classList.remove('out');stack.appendChild(first);cards=Array.from(stack.children);layout();},750);}
+stack.addEventListener('click',rotate);
+stack.addEventListener('touchstart',(e)=>{e.preventDefault();rotate();},{passive:false});
+setInterval(rotate,2800);layout();
+function animateCount(el){const target=parseInt(el.getAttribute('data-target'));let current=0;const step=target/60;const t=setInterval(()=>{current+=step;if(current>=target){el.textContent=target;clearInterval(t);}else{el.textContent=Math.floor(current);}},30);}
+const statsSec=document.getElementById('statsSection');const obs=new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('.stat-number').forEach(n=>{if(n.textContent==='0') animateCount(n);});}});},{threshold:0.3});obs.observe(statsSec);
+function filterPortfolio(cat, el){document.querySelectorAll('.filter-tabs span').forEach(s=>s.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.portfolio-item').forEach(item=>{if(cat==='all' || item.dataset.cat===cat){item.style.display='block';}else{item.style.display='none';}});}
+</script>
+</body>
+</html>
